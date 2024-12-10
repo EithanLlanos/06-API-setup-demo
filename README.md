@@ -1,1 +1,1 @@
-# 06-API-setup-demo
+# 06-apiSetup-demo
