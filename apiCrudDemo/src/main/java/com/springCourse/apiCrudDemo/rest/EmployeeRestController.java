@@ -56,7 +56,7 @@ public class EmployeeRestController {
         return theEmployee;
     }
 
-    // add mapping POST /employees - add new employee
+    // add mapping for POST /employees - add new employee
     @PostMapping("/employees")
     public Employee addEmployee(@RequestBody Employee theEmployee) {
         // Also just in case they pass an Id in JSON ... set id to 0
@@ -70,11 +70,26 @@ public class EmployeeRestController {
 
     }
 
-    // Add mapping for PUT / employees - update existing employee
+    // Add mapping for PUT /employees - update existing employee
     @PutMapping("/employees")
     public Employee updateEmployee(@RequestBody Employee theEmployee) {
 
         Employee dbEmployee = employeeService.save(theEmployee);
         return dbEmployee;
+    }
+
+    // Add mapping for DELETE /employees/{employeeId} - delete employee
+    @DeleteMapping("/employees/{employeeId}")
+    public String deleteEmployee(@PathVariable int employeeId) {
+
+        Employee tempEmployee = employeeService.findById(employeeId);
+
+        // throw exception if null
+        if (tempEmployee == null) throw new RuntimeException("Employee id not found - " + employeeId);
+
+        employeeService.deleteById(employeeId);
+
+        // This doesnt return and employee object turned to JSON but just a string that says deleted employee id
+        return "Deleted employee id - " + employeeId;
     }
 }
