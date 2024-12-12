@@ -1,4 +1,0 @@
-- Spring Web
-- Spring Data JPA
-- Spring Boot DevTools
-- MySQL driver
